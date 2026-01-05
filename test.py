@@ -1,5 +1,5 @@
 import boto3
-logs = boto3.client("logs")  # add region_name="us-east-1" if needed
+logs = boto3.client("logs", region_name="us-gov-west-1")
 
 lg = "/aws/lambda/my-function"
 prefix = "2026/01/05/"  # or whatever prefix matches your stream

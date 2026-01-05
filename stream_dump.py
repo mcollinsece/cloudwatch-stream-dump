@@ -15,7 +15,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--log-group", required=True)
     ap.add_argument("--log-stream", required=True)
-    ap.add_argument("--region")
+    ap.add_argument("--region", default="us-gov-west-1")
     ap.add_argument("--profile")
     ap.add_argument("--out")
     ap.add_argument("--limit", type=int, default=10000)
@@ -26,10 +26,7 @@ def main():
         session_kwargs["profile_name"] = args.profile
     session = boto3.Session(**session_kwargs)
 
-    client_kwargs = {}
-    if args.region:
-        client_kwargs["region_name"] = args.region
-    logs = session.client("logs", **client_kwargs)
+    logs = session.client("logs", region_name=args.region)
 
     out_fh = open(args.out, "w", encoding="utf-8") if args.out else sys.stdout
 
